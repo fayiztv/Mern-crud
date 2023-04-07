@@ -8,7 +8,6 @@ import axios from "axios";
 function CreateUser() {
   const [name, setName] = useState("");
   const [proffession, setProffession] = useState("");
-  const [about, setAbout] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMessage, setErrMessage]=useState(null)
@@ -17,7 +16,6 @@ function CreateUser() {
     if (
       email.replaceAll(" ", "") === "" ||
       password.replaceAll(" ", "") === "" ||
-      about.replaceAll(" ", "") === "" ||
       proffession.replaceAll(" ", "") === "" ||
       name.replaceAll(" ", "") === ""
     ) {
@@ -29,7 +27,7 @@ function CreateUser() {
     e.preventDefault();
     if (!validationErr()) {
       let {data}=await axios.post("/admin/create-user", {
-        name, email, password, about, proffession
+        name, email, password, proffession
       });
       console.log(data)
       if(!data.error){

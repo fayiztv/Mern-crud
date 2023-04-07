@@ -8,15 +8,13 @@ import axios from "axios";
 function EditUser() {
   const [name, setName] = useState("");
   const [proffession, setProffession] = useState("");
-  const [about, setAbout] = useState("");
   const [email, setEmail] = useState("");
   const [errMessage, setErrMessage]=useState(null)
-  const navigate= useNavigate()
+  const navigate = useNavigate()
   const {id}=useParams()
   function validationErr() {
     if (
       email.replaceAll(" ", "") === "" ||
-      about.replaceAll(" ", "") === "" ||
       proffession.replaceAll(" ", "") === "" ||
       name.replaceAll(" ", "") === ""
     ) {
@@ -28,7 +26,7 @@ function EditUser() {
     e.preventDefault();
     if (!validationErr()) {
       let {data}=await axios.post("/admin/edit-user", {
-        name, email, about, proffession,id
+        name, email, proffession,id
       });
       if(!data.error){
           return navigate("/admin/")
@@ -44,9 +42,7 @@ function EditUser() {
         setName(data.name)
         setEmail(data.email)
         setProffession(data.proffession)
-        setAbout(data.about)
     })()
-
   },[])
   return (
     <section className="vh-100 login">
@@ -104,18 +100,6 @@ function EditUser() {
                           onChange={(e) => setProffession(e.target.value)}
                           className="form-control form-control-lg"
                         />
-                      </div>
-
-                      <div className="form-outline mb-4">
-                        <label className="form-label" htmlFor="form2Example17">
-                          About
-                        </label>
-                        <textarea
-                          type="text"
-                          value={about}
-                          onChange={(e) => setAbout(e.target.value)}
-                          className="form-control form-control-lg"
-                        ></textarea>
                       </div>
 
                       <div className="form-outline mb-4">

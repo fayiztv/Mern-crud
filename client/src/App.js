@@ -24,11 +24,9 @@ function App() {
       dispatch({ type: "user", payload: { login: data.loggedIn, details:data.user } })
       let { data:adminData } = await axios.get("/admin/check-auth");
       dispatch({ type: "admin", payload: { login: adminData.loggedIn } })
-    
     })()
   }, [refresh])
   console.log(user)
-
   return (
     <Router>
       <div className="App">
