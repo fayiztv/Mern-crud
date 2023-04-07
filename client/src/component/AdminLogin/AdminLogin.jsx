@@ -1,38 +1,37 @@
 import axios from "axios";
-import React,{ useState } from 'react';
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
 
 function AdminLogin() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [errMessage, setErrMessage] = useState(null);
-    const dispatch=useDispatch()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage] = useState(null);
+  const dispatch = useDispatch();
 
-function validationErr(){
-    if(
-        email.replaceAll(" ","") === "" ||
-        password.replaceAll(" ","") === ""
-    ){
-        return true;
+  function validationErr() {
+    if (
+      email.replaceAll(" ", "") === "" ||
+      password.replaceAll(" ", "") === ""
+    ) {
+      return true;
     }
     return false;
-}
+  }
 
-async function handleSubmit(e){
+  async function handleSubmit(e) {
     e.preventDefault();
-    if(!validationErr()){
-        let {data} = await axios.post("/admin/login",{
-            email,
-            password,
-        });
-        if(!data.error){
-            dispatch({type:"refresh"})
-        }else{
-            setErrMessage(data.message)
-        }
-     }
-  }  
+    if (!validationErr()) {
+      let { data } = await axios.post("/admin/login", {
+        email,
+        password,
+      });
+      if (!data.error) {
+        dispatch({ type: "refresh" });
+      } else {
+        setErrMessage(data.message);
+      }
+    }
+  }
   return (
     <section className="vh-100">
       <div className="container py-5 h-100">
@@ -85,7 +84,10 @@ async function handleSubmit(e){
                         />
                       </div>
                       <div className="form-outline mb-4">
-                        <label className="form-label text-danger" htmlFor="form2Example27">
+                        <label
+                          className="form-label text-danger"
+                          htmlFor="form2Example27"
+                        >
                           {errMessage && errMessage}
                         </label>
                       </div>
@@ -99,12 +101,6 @@ async function handleSubmit(e){
                           Login
                         </button>
                       </div>
-
-                      {/* <a className="small text-muted" href="#!">Forgot password?</a> */}
-                      <p className="mb-5 pb-lg-2">
-                        Don't have an account?{" "}
-                        <Link to="/register">Register here</Link>
-                      </p>
                     </form>
                   </div>
                 </div>
@@ -117,4 +113,4 @@ async function handleSubmit(e){
   );
 }
 
-export default AdminLogin
+export default AdminLogin;

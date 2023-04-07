@@ -10,8 +10,8 @@ function CreateUser() {
   const [proffession, setProffession] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errMessage, setErrMessage]=useState(null)
-  const navigate= useNavigate()
+  const [errMessage, setErrMessage] = useState(null);
+  const navigate = useNavigate();
   function validationErr() {
     if (
       email.replaceAll(" ", "") === "" ||
@@ -26,14 +26,17 @@ function CreateUser() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!validationErr()) {
-      let {data}=await axios.post("/admin/create-user", {
-        name, email, password, proffession
+      let { data } = await axios.post("/admin/create-user", {
+        name,
+        email,
+        password,
+        proffession,
       });
-      console.log(data)
-      if(!data.error){
-          return navigate("/admin/")
-      }else{
-        setErrMessage(data.message)
+      console.log(data);
+      if (!data.error) {
+        return navigate("/admin/");
+      } else {
+        setErrMessage(data.message);
       }
     }
   }
@@ -55,9 +58,7 @@ function CreateUser() {
                     <span className="h1 fw-bold mb-0">Logo</span>
                   </div> */}
 
-                      <h5 className="fw-normal mb-3 pb-3">
-                        Create New User
-                      </h5>
+                      <h5 className="fw-normal mb-3 pb-3">Create New User</h5>
 
                       <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="form2Example17">
@@ -107,7 +108,10 @@ function CreateUser() {
                         />
                       </div>
                       <div className="form-outline mb-4">
-                        <label className="form-label text-danger" htmlFor="form2Example27">
+                        <label
+                          className="form-label text-danger"
+                          htmlFor="form2Example27"
+                        >
                           {errMessage && errMessage}
                         </label>
                       </div>

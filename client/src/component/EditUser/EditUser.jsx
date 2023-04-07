@@ -9,9 +9,9 @@ function EditUser() {
   const [name, setName] = useState("");
   const [proffession, setProffession] = useState("");
   const [email, setEmail] = useState("");
-  const [errMessage, setErrMessage]=useState(null)
-  const navigate = useNavigate()
-  const {id}=useParams()
+  const [errMessage, setErrMessage] = useState(null);
+  const navigate = useNavigate();
+  const { id } = useParams();
   function validationErr() {
     if (
       email.replaceAll(" ", "") === "" ||
@@ -25,25 +25,28 @@ function EditUser() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!validationErr()) {
-      let {data}=await axios.post("/admin/edit-user", {
-        name, email, proffession,id
+      let { data } = await axios.post("/admin/edit-user", {
+        name,
+        email,
+        proffession,
+        id,
       });
-      if(!data.error){
-          return navigate("/admin/")
-      }else{
-        setErrMessage(data.message)
+      if (!data.error) {
+        return navigate("/admin/");
+      } else {
+        setErrMessage(data.message);
       }
     }
   }
-  useEffect(()=>{
-    (async function(){
-        console.log(id)
-        let {data}=await axios.get("/admin/user/"+id);
-        setName(data.name)
-        setEmail(data.email)
-        setProffession(data.proffession)
-    })()
-  },[])
+  useEffect(() => {
+    (async function () {
+      console.log(id);
+      let { data } = await axios.get("/admin/user/" + id);
+      setName(data.name);
+      setEmail(data.email);
+      setProffession(data.proffession);
+    })();
+  }, []);
   return (
     <section className="vh-100 login">
       <div className="container py-5 h-100">
@@ -62,9 +65,7 @@ function EditUser() {
                     <span className="h1 fw-bold mb-0">Logo</span>
                   </div> */}
 
-                      <h5 className="fw-normal mb-3 pb-3">
-                        Update User
-                      </h5>
+                      <h5 className="fw-normal mb-3 pb-3">Update User</h5>
 
                       <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="form2Example17">
@@ -103,7 +104,10 @@ function EditUser() {
                       </div>
 
                       <div className="form-outline mb-4">
-                        <label className="form-label text-danger" htmlFor="form2Example27">
+                        <label
+                          className="form-label text-danger"
+                          htmlFor="form2Example27"
+                        >
                           {errMessage && errMessage}
                         </label>
                       </div>

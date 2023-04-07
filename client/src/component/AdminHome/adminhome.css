@@ -1,8 +1,8 @@
-.table-main{
-    display: flex;
-    justify-content: center;
-    width: 100vw;
+.table-main {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
 }
-.table-container{
-    width: 90%;
+.table-container {
+  width: 90%;
 }

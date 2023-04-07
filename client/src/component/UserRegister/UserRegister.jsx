@@ -6,39 +6,42 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 
 function UserRegister() {
-   const [name,setName] = useState("");
-   const [proffession,setProffession] = useState("");
-   const [email,setEmail] = useState("")
-   const [password,setPassword] = useState("");
-   const [errMessage, setErrMessage]=useState(null)
-   const dispatch = useDispatch()
-   function validationErr(){
-    if(
-        email.replaceAll(" ", "") === "" ||
-        password.replaceAll(" ", "") === "" ||
-        proffession.replaceAll(" ", "") === "" ||
-        name.replaceAll(" ", "") === ""
-    ){
-        return true;
+  const [name, setName] = useState("");
+  const [proffession, setProffession] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage] = useState(null);
+  const dispatch = useDispatch();
+  function validationErr() {
+    if (
+      email.replaceAll(" ", "") === "" ||
+      password.replaceAll(" ", "") === "" ||
+      proffession.replaceAll(" ", "") === "" ||
+      name.replaceAll(" ", "") === ""
+    ) {
+      return true;
     }
     return false;
-   }
+  }
 
-   async function handleSubmit(e){
+  async function handleSubmit(e) {
     e.preventDefault();
-    if(!validationErr()){
-        let {data} = await axios.post('/register',{
-            name,email,password,proffession
-        });
-        if(!data.error){
-            dispatch({type:"refresh"})
-        }else{
-            setErrMessage(data.message)
-        }
+    if (!validationErr()) {
+      let { data } = await axios.post("/register", {
+        name,
+        email,
+        password,
+        proffession,
+      });
+      if (!data.error) {
+        dispatch({ type: "refresh" });
+      } else {
+        setErrMessage(data.message);
       }
-   }
+    }
+  }
 
-   return (
+  return (
     <section className="vh-100 login">
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
@@ -108,7 +111,10 @@ function UserRegister() {
                         />
                       </div>
                       <div className="form-outline mb-4">
-                        <label className="form-label text-danger" htmlFor="form2Example27">
+                        <label
+                          className="form-label text-danger"
+                          htmlFor="form2Example27"
+                        >
                           {errMessage && errMessage}
                         </label>
                       </div>

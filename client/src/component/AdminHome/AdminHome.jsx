@@ -1,25 +1,25 @@
-import React,{ useState , useEffect} from "react";
-import './adminhome.css'
+import React, { useState, useEffect } from "react";
+import "./adminhome.css";
 import AdminHeader from "../AdminHeader/AdminHeader";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 function AdminHome() {
-  const [search, setSearch]=useState('')
-  const [users, setUsers]=useState([])
-  const baseImgUrl="http://localhost:5000/uploads/"
-  const [refresh, setRefresh]=useState(false);
+  const [search, setSearch] = useState("");
+  const [users, setUsers] = useState([]);
+  const baseImgUrl = "http://localhost:5000/uploads/";
+  const [refresh, setRefresh] = useState(false);
 
-  useEffect(()=>{
-    (async function(){
-        let {data} = await axios.get("/admin/users?search="+search);
-        setUsers(data)
-    })()
-  },[search, refresh])
-  async function deleteUser(id){
-    if(window.confirm("Are you sure delete this user")){
-      await axios.post("/admin/delete-user", {id});
-      setRefresh(!refresh)
+  useEffect(() => {
+    (async function () {
+      let { data } = await axios.get("/admin/users?search=" + search);
+      setUsers(data);
+    })();
+  }, [search, refresh]);
+  async function deleteUser(id) {
+    if (window.confirm("Are you sure delete this user")) {
+      await axios.post("/admin/delete-user", { id });
+      setRefresh(!refresh);
     }
   }
 
@@ -38,51 +38,48 @@ function AdminHome() {
               </tr>
             </thead>
             <tbody>
-                {
-                  users.map((item, index)=>{
-                    return (
-                      <tr key={index}>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <img
-                            src={baseImgUrl+item.profile}
-                            style={{width: "45px", height: "45px"}}
-                            className="rounded-circle"
-                            alt="m"
-                          />
-                          <div className="ms-3">
-                            <p className="fw-bold mb-1">{item.name}</p>
-                            
-                          </div>
+              {users.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <img
+                          src={baseImgUrl + item.profile}
+                          style={{ width: "45px", height: "45px" }}
+                          className="rounded-circle"
+                          alt="m"
+                        />
+                        <div className="ms-3">
+                          <p className="fw-bold mb-1">{item.name}</p>
                         </div>
-                      </td>
-                      <td>
-                        <p className="fw-normal mb-1">{item.email}</p>
-                      </td>
-                      <td>{item.proffession}</td>
-                      <td>
-                        <Link to={"/admin/edit-user/"+item._id}>
+                      </div>
+                    </td>
+                    <td>
+                      <p className="fw-normal mb-1">{item.email}</p>
+                    </td>
+                    <td>{item.proffession}</td>
+                    <td>
+                      <Link to={"/admin/edit-user/" + item._id}>
                         <button
                           type="button"
                           className="btn btn-dark btn-rounded btn-sm fw-bold me-1"
                           data-mdb-ripple-color="dark"
-                          >
+                        >
                           Edit
                         </button>
-                          </Link>
-                        <button
-                          type="button"
-                          onClick={()=>deleteUser(item._id)}
-                          className="btn btn-outline-dark btn-rounded btn-sm fw-bold"
-                          data-mdb-ripple-color="dark"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                    )
-                  })
-                } 
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => deleteUser(item._id)}
+                        className="btn btn-outline-dark btn-rounded btn-sm fw-bold"
+                        data-mdb-ripple-color="dark"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -91,4 +88,4 @@ function AdminHome() {
   );
 }
 
-export default AdminHome
+export default AdminHome;
