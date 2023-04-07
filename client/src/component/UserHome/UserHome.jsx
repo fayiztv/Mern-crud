@@ -61,7 +61,7 @@ function UserHome() {
                 </div>
 
             </div>
-            {/* <EditProfileModal open={open} id={user.details._id} setOpen={setOpen}/> */}
+            <EditProfileModal open={open} id={user.details._id} setOpen={setOpen}/>
 
 
         </div>

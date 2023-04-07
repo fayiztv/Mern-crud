@@ -13,7 +13,6 @@ function EditProfilePicture({open,setOpen,id}) {
     const [file,setFile] = useState("")
     const [errMessage,setErrMessage] = useState(null)
     const dispatch = useDispatch();
-    console.log("hai")
    
     async function handleSubmit(){
         let {data} = await axios.post("/edit-profile",{file,id},{
