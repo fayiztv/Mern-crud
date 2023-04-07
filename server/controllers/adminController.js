@@ -81,7 +81,7 @@ export async function editUser(req, res){
         const {name, email, proffession, id}=req.body;
         console.log(id)
         await UserModel.findByIdAndUpdate(id, {$set:{
-            name, email, proffession, about
+            name, email, proffession,
         }})
 
         return res.json({error:false})
